@@ -199,4 +199,4 @@ This technique maps to several ATT&CK concepts, primarily revolving around the *
 ## Version History
 | Version | Date       | Changes                                                               | Author         |
 | ------- | ---------- | --------------------------------------------------------------------- | -------------- |
-| 1.0     | 2025-10-26 | Initial comprehensive documentation based on multi-phase research. | Utsav Darlami|
+| 1.0     | 2025-11-28 | Initial comprehensive documentation based on multi-phase research. | Utsav Darlami|
