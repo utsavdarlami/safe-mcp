@@ -5,7 +5,7 @@
 **Technique ID**: SAFE-T1803  
 **Severity**: Critical  
 **First Observed**: July 2025 (Corresponds with the public disclosure of the Supabase MCP vulnerability by General Analysis) [7](#ref-7)  
-**Last Updated**: 2025-10-26  
+**Last Updated**: 2025-11-08
 
 ## Description
 
@@ -103,7 +103,7 @@ id: a1b2c3d4-e5f6-7890-1234-567890abcdef
 status: experimental
 description: Detects potential database dump attack by identifying queries to metadata tables or high-volume data extraction from an AI agent's service account.
 author: SAFE-MCP Team
-date: 2025-10-26
+date: 2025-11-08
 references:
   - https://www.generalanalysis.com/blog/supabase-mcp-blog
 logsource:
@@ -199,7 +199,4 @@ This technique maps to several ATT&CK concepts, primarily revolving around the *
 ## Version History
 | Version | Date       | Changes                                                               | Author         |
 | ------- | ---------- | --------------------------------------------------------------------- | -------------- |
-| 1.0     | 2025-10-26 | Initial comprehensive documentation based on multi-phase research. | SAFE-MCP Team |
-| 1.1     | 2025-10-26 | Corrected Supabase reference and updated MITRE ATT&CK mappings based on feedback. | SAFE-MCP Team |
-| 1.2     | 2025-10-26 | Incorporated primary source from General Analysis on the Supabase MCP vulnerability for technical accuracy and proper attribution. | SAFE-MCP Team |
-| 1.3     | 2025-10-26 | Refined the MITRE ATT&CK Mapping section to add depth, include the Execution tactic (T1059), and provide justifications for each mapping. | SAFE-MCP Team |
+| 1.0     | 2025-10-26 | Initial comprehensive documentation based on multi-phase research. | Utsav Darlami|

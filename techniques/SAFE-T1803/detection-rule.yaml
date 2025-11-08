@@ -7,8 +7,8 @@ description: >-
   which is a strong indicator of reconnaissance. 2) The agent extracting an abnormally high volume of data in a single query, 
   indicative of a bulk data dump. For full coverage, security teams should also create aggregation-based rules to detect high-frequency, low-volume queries over time.
 author: SAFE-MCP Team
-date: 2025-10-26
-modified: 2025-10-27
+date: 2025-11-08
+modified: 2025-11-08
 references:
   - https://www.generalanalysis.com/blog/supabase-mcp-blog
   - https://simonwillison.net/2025/Jul/6/supabase-mcp-lethal-trifecta/
