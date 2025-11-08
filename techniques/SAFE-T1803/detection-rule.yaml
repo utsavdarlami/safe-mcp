@@ -1,0 +1,60 @@
+title: Database Dump via AI Agent
+id: a1b2c3d4-e5f6-7890-1234-567890abcdef
+status: stable
+description: >-
+  Detects a potential database dump attack conducted by an AI agent. 
+  This rule identifies two primary patterns: 1) The agent querying sensitive database metadata schemas (e.g., information_schema), 
+  which is a strong indicator of reconnaissance. 2) The agent extracting an abnormally high volume of data in a single query, 
+  indicative of a bulk data dump. For full coverage, security teams should also create aggregation-based rules to detect high-frequency, low-volume queries over time.
+author: SAFE-MCP Team
+date: 2025-10-26
+modified: 2025-10-27
+references:
+  - https://www.generalanalysis.com/blog/supabase-mcp-blog
+  - https://simonwillison.net/2025/Jul/6/supabase-mcp-lethal-trifecta/
+logsource:
+  product: database
+  service: audit
+  category: query
+detection:
+  # Base Selection: Focus on the specific, low-privilege user account for the AI agent.
+  # This account should NEVER perform administrative actions.
+  agent_user:
+    db.user.name: 'ai_agent_service_account' # Placeholder: Replace with actual agent user/role.
+
+  # Indicator 1: The agent is performing reconnaissance by querying sensitive metadata.
+  # This behavior is highly anomalous for a typical application-layer service account.
+  metadata_access:
+    query|contains:
+      - 'information_schema.'
+      - 'sys.tables'
+      - 'sys.columns'
+      - 'pg_catalog.'
+      - 'FROM all_tables'
+      - 'SHOW TABLES'
+
+  # Indicator 2: The agent is extracting an unusually large number of rows in a single query.
+  # This suggests a bulk data grab rather than a typical, scoped application query.
+  high_volume_extraction:
+    returned_rows: '>500' # Threshold for single query bulk extraction. Adjust based on baseline.
+
+  # Condition: The event must be from the agent's user AND must match one of the suspicious indicators.
+  condition: agent_user and (metadata_access or high_volume_extraction)
+
+falsepositives:
+  - Legitimate, authorized administrative or migration scripts. These should never use the AI agent's specific service account.
+  - Approved, data-intensive reporting tasks performed by the agent. This activity should be rare, documented, and baselined.
+level: critical
+tags:
+  - attack.collection
+  - attack.t1213
+  - safe.t1803
+
+# Fields to include in the alert for easier investigation
+fields:
+  - timestamp
+  - db.user.name
+  - source.ip
+  - db.statement # The full query text that was executed
+  - db.operation # e.g., SELECT
+  - returned_rows
